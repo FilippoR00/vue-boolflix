@@ -29,12 +29,27 @@ export default {
 				}
 			})
 			.then(function (response) {
-				dataShared.myData = response.data.results;
+				dataShared.myMovie = response.data.results;
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+
+			axios.get('https://api.themoviedb.org/3/search/tv', {
+				params: {
+					api_key : '0b9ac5d0a41cb0ca49e6d38df58bc461',
+					language : 'it-IT',
+					query : this.search
+				}
+			})
+			.then(function (response) {
+				dataShared.myTV = response.data.results;
 			})
 			.catch(function (error) {
 				console.log(error);
 			});  
-		}
+		},
+		
 	},
 }
 </script>
