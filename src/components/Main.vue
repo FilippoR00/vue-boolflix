@@ -1,20 +1,34 @@
 <template>
     <div>
-        <div>Movies:</div>
-        <div class="movies" v-for="(movie, index) in dataShared.myMovie" :key="index">
-            <img :src="printImg(movie.poster_path)" :alt="movie.original_title + ' image'">
-            <div class="title">TITOLO: {{movie.title}}</div>
-            <div class="original-title">TITOLO ORIGINALE: {{movie.original_title}}</div>
-            <div class="language">LINGUA:  {{langFlag(movie.original_language) + movie.original_language}}</div>
-            <div class="rating">VOTO: {{movie.vote_average }} <span v-html='rating(movie.vote_average)'></span></div>
+        <div class="row-title">Movies:</div>
+        <div class="row">
+            <div class="movies" v-for="(movie, index) in dataShared.myMovie" :key="index">
+                <div class="img-container">
+                    <img :src="printImg(movie.poster_path)" :alt="movie.original_title + ' image'">
+                    <div class="card-info">
+                        <div class="title"><strong>TITOLO</strong> : {{movie.title}}</div>
+                        <div class="original-title"><strong>TITOLO ORIGINALE:</strong> {{movie.original_title}}</div>
+                        <div class="language"><strong>LINGUA:</strong>  {{langFlag(movie.original_language) + movie.original_language}}</div>
+                        <div class="rating"><strong>VOTO:</strong> {{movie.vote_average }} <span class="star" v-html='rating(movie.vote_average)'></span></div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div>Serie TV:</div>
-        <div class="tv-series" v-for="(tv, index) in dataShared.myTV" :key="dataShared.myMovie.length + index">
-            <img :src="printImg(tv.poster_path)" :alt="tv.original_name + ' image'">
-            <div class="title">TITOLO: {{tv.name}}</div>
-            <div class="original-title">TITOLO ORIGINALE: {{tv.original_name}}</div>
-            <div class="language">LINGUA:  {{langFlag(tv.original_language) + tv.original_language}}</div>
-            <div class="rating">VOTO: {{tv.vote_average }} <span v-html='rating(tv.vote_average)'></span></div>
+        <div class="row-title">Serie TV:</div>
+        <div class="row">
+            <div class="tv-series" v-for="(tv, index) in dataShared.myTV" :key="dataShared.myMovie.length + index">
+                <div class="img-container">
+                    <img :src="printImg(tv.poster_path)" :alt="tv.original_name + ' image'">
+                    <div class="card-info">
+                        <div class="card-info">
+                            <div class="title"><strong>TITOLO:</strong> {{tv.name}}</div>
+                            <div class="original-title"><strong>TITOLO ORIGINALE:</strong> {{tv.original_name}}</div>
+                            <div class="language"><strong>LINGUA:</strong>  {{langFlag(tv.original_language) + tv.original_language}}</div>
+                            <div class="rating"><strong>VOTO:</strong> {{tv.vote_average }} <span class="star" v-html='rating(tv.vote_average)'></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -34,29 +48,29 @@ export default {
         langFlag(val) {
 			switch (val) {
 				case "it":
-					return '🇮🇹';
+					return '🇮🇹 ';
                 case "en":
-                    return '🇺🇸';
+                    return '🇺🇸 ';
                 case "ja":
-					return '🇯🇵';
+					return '🇯🇵 ';
                 case "uk":
-                    return '🇬🇧';
+                    return '🇬🇧 ';
                 case "de":
-					return '🇩🇪';
+					return '🇩🇪 ';
                 case "fr":
-                    return '🇫🇷';
+                    return '🇫🇷 ';
                 case "da":
-                    return '🇩🇰';
+                    return '🇩🇰 ';
                 case "nl":
-                    return '🇳🇱';
+                    return '🇳🇱 ';
                 case "es":
-                    return '🇪🇸';
+                    return '🇪🇸 ';
                 case "pl":
-                    return '🇵🇱';
+                    return '🇵🇱 ';
                 case "ca":
-                    return '🇨🇦';
+                    return '🇨🇦 ';
 				default:
-					return '🏳️‍🌈';
+					return '🏳️‍🌈 ';
 			}
 		},
         printImg(val) {
@@ -64,7 +78,7 @@ export default {
                 return 'https://image.tmdb.org/t/p/' + 'w300/' + val;
             }
             else {
-                return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJ2jGheLn_aLV34b2Kfqba1DwKWlyYbaN_aev3d1mH_GHZ9FZevDjSSqs0HweHifHmHfY&usqp=CAU';
+                return 'https://elementarchitects.com/wp-content/uploads/2021/08/1200px-No-Image-Placeholder.svg.png';
             }
         },
         rating(val) {
@@ -76,5 +90,54 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+	@import "../style/Global.scss";
+    .row-title{
+        font-size: 30px;
+        margin: 10px 25px;
+    }
+    .row{
+        max-width: 100vw;
+        overflow-x: scroll;
+        padding: 25px;
+        margin-bottom: 30px;
+        display: flex;
+        column-gap: 25px;
+        .img-container{
+            position: relative;
+            img{
+                width: 300px;
+                height: 450px;
+                object-fit: cover;
+                border-radius: 20px;
+            }
+            .card-info{
+                overflow: hidden;
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                border-radius: 20px;
+                background-color: black;
+                height: 100%;
+                width: 100%;
+                display: none;
+                padding: 20px;
+                .title{
+                    font-size: 30px;
+                    margin-bottom: 30px;
+                }
+                div{
+                    margin: 10px 0px;
+                    font-size: 20px;
+                    .star{
+                        color: rgb(255, 217, 0);
+                    }
+                }
+            }
+            
+        }
+        .img-container:hover .card-info{
+            display: block;
+        }
+        
+    }
 </style>
