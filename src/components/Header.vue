@@ -36,7 +36,6 @@ export default {
 		return {
 			search : 'spider man',
 			dataShared,
-
 		}
 	},
 	methods: {
@@ -49,7 +48,13 @@ export default {
 				}
 			})
 			.then(function (response) {
-				dataShared.myMovie = response.data.results;
+				if (response.data.results.length == 0) {
+					dataShared.myMovie = response.data.results;
+					dataShared.MovieContent = true;
+				} else {
+					dataShared.myMovie = response.data.results;
+					dataShared.MovieContent = false;
+				}
 			})
 			.catch(function (error) {
 				console.log(error);
@@ -63,13 +68,25 @@ export default {
 				}
 			})
 			.then(function (response) {
-				dataShared.myTV = response.data.results;
+				if (response.data.results.length == 0) {
+					dataShared.myTV = response.data.results;
+					dataShared.TVcontent = true;
+				} else {
+					dataShared.myTV = response.data.results;
+					dataShared.TVcontent = false;
+				}
 			})
 			.catch(function (error) {
 				console.log(error);
 			});  
 		},
-		
+		checkSearch(val) {
+			if(val != '' && val != ' '){
+				return val;
+			} else {
+				return val;
+			}
+		},
 	},
 	mounted() {
 		this.getMovies();

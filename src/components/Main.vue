@@ -7,12 +7,14 @@
                     <img :src="printImg(movie.poster_path)" :alt="movie.original_title + ' image'">
                     <div class="card-info">
                         <div class="title"><strong>TITOLO</strong> : {{movie.title}}</div>
-                        <div class="original-title"><strong>TITOLO ORIGINALE:</strong> {{movie.original_title}}</div>
+                        <div class="original-title" v-if="movie.title != movie.original_title"><strong>TITOLO ORIGINALE:</strong> {{movie.original_title}}</div>
                         <div class="language"><strong>LINGUA:</strong>  {{langFlag(movie.original_language) + movie.original_language}}</div>
                         <div class="rating"><strong>VOTO:</strong> {{movie.vote_average }} <span class="star" v-html='rating(movie.vote_average)'></span></div>
+                        
                     </div>
                 </div>
             </div>
+            <div class="content" v-if="dataShared.MovieContent">La ricerca non ha prodotto risultati</div>
         </div>
         <div class="row-title">Serie TV:</div>
         <div class="row">
@@ -22,13 +24,14 @@
                     <div class="card-info">
                         <div class="card-info">
                             <div class="title"><strong>TITOLO:</strong> {{tv.name}}</div>
-                            <div class="original-title"><strong>TITOLO ORIGINALE:</strong> {{tv.original_name}}</div>
+                            <div class="original-title" v-if="tv.name != tv.original_name"><strong>TITOLO ORIGINALE:</strong> {{tv.original_name}}</div>
                             <div class="language"><strong>LINGUA:</strong>  {{langFlag(tv.original_language) + tv.original_language}}</div>
                             <div class="rating"><strong>VOTO:</strong> {{tv.vote_average }} <span class="star" v-html='rating(tv.vote_average)'></span></div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="content" v-if="dataShared.TVcontent">La ricerca non ha prodotto risultati</div>
         </div>
     </div>
 </template>
@@ -96,6 +99,7 @@ export default {
         margin: 10px 25px;
     }
     .row{
+        min-height: 350px;
         max-width: 100vw;
         overflow-x: scroll;
         padding: 25px;
@@ -104,6 +108,7 @@ export default {
         column-gap: 25px;
         .img-container{
             position: relative;
+            cursor: pointer;
             img{
                 width: 300px;
                 height: 450px;
@@ -119,10 +124,11 @@ export default {
                 background-color: black;
                 height: 100%;
                 width: 100%;
-                display: none;
+                opacity: 0;
+                transition: 0.2s;
                 padding: 20px;
                 .title{
-                    font-size: 30px;
+                    font-size: 25px;
                     margin-bottom: 30px;
                 }
                 div{
@@ -135,9 +141,13 @@ export default {
             }
             
         }
-        .img-container:hover .card-info{
-            display: block;
+        .card-info:hover{
+            opacity: 0.85;
         }
-        
+        .content{
+            width: 100%;
+            font-size: 25px;
+            text-align: center;
+        }
     }
 </style>
