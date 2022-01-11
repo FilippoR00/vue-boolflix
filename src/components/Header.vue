@@ -1,6 +1,7 @@
 <template>
 	<div>
 		<div class="left">
+			<img src="../assets/logo.png" alt="Logo">
 			<ul>
 				<li><a href="#">Home</a></li>
 				<li><a href="#">Serie TV</a></li>
