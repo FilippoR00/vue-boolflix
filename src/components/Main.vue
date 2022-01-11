@@ -10,7 +10,6 @@
                         <div class="original-title" v-if="movie.title != movie.original_title"><strong>TITOLO ORIGINALE:</strong> {{movie.original_title}}</div>
                         <div class="language"><strong>LINGUA:</strong>  {{langFlag(movie.original_language) + movie.original_language}}</div>
                         <div class="rating"><strong>VOTO:</strong> {{movie.vote_average }} <span class="star" v-html='rating(movie.vote_average)'></span></div>
-                        
                     </div>
                 </div>
             </div>
@@ -44,7 +43,6 @@ export default {
     data() {
         return {
             dataShared,
-
         }
     },
     methods: {
@@ -87,7 +85,7 @@ export default {
         rating(val) {
             let temp = Math.ceil(val / 2);
             return `<i class="fas fa-star"></i>`.repeat(temp);
-        }
+        },
     },
 }
 </script>

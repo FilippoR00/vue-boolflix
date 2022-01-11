@@ -5,4 +5,5 @@ export default Vue.observable({
     myTV : [],
     TVcontent : false,
     MovieContent : false,
+    names : []
 });
